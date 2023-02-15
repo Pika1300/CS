@@ -1,0 +1,24 @@
+from random import randint
+lyst=[]
+for x in range(6):
+    lyst.append(randint(1,10))
+def is_sorted(lyst):
+    for x in range(len(lyst)-1):
+        if (lyst[x+1] < lyst[x]):
+            return False
+    return True
+lyst=[2,1]
+x=0
+true=[]
+while x!=10000:
+    x=x+1
+    lyst=[]
+    #print("Attempt "+str(x)+"___________________________________________________")
+    for i in range(6):
+        lyst.append(randint(1,1000))
+    #print(lyst)
+    print(is_sorted(lyst))
+    if is_sorted(lyst)==True:
+        true.append(lyst)
+
+print(true)

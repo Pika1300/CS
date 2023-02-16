@@ -64,22 +64,64 @@ class SList:
 
     '''Remove the first occurance of value.'''
     def remove(self, value):
-        pass
+        comp=self._tail
+        next=comp.next
+        found=False
+        #checkstail
+        if comp.value==value:
+            self._tail=next
+            found=True
+            self._size-=1
+            return found
+        #iterates
+        while next!=None:
+            if next.value==value:
+                comp.next=next.next
+                found=True
+                self._size-=1
+                break
+            else:
+                comp=next
+                next=comp.next
+        return found
 
     '''Remove all instances of value'''
     def remove_all(self, value):
-        pass
+        comp=self._tail
+        next=comp.next
+        found=False
+        #checkstail
+        if comp.value==value:
+            while comp.value==value:
+                self._tail=next
+                comp=self._tail
+                next=comp.next
+                self._size-=1
+            return
+
+        #iterates
+        while next!=None:
+            if next.value==value:
+                comp.next=next.next
+                next=comp.next
+                self._size-=1
+            else:
+                comp=next
+                next=comp.next
 
     '''Convert the list to a string and return it'''
     def __str__(self):
         n=self._tail
         #print("Size"+str(self._size))
-        l=""
+        l="["
         if n==None:
             return("There is no list.")
+        l=l+str(n.value)+""
+        n=n.next
         while n!=None:
-            l=l+str(n.value)+","
+            l=l+","+str(n.value)
             n=n.next
+        l=l+"]"
         return l
 
     '''Return an iterator for the list'''
@@ -91,21 +133,38 @@ class SList:
         pass
 
     def __len__(self):
-        pass
+        return self._size
+
     
 lyst=SList()
-
 lyst.insert(5)
 lyst.insert(6)
 lyst.insert(6)
-lyst.insert(7)
-lyst.insert(9)
-lyst.insert(9)
-lyst.insert(9)
 lyst.insert(6)
-#print(lyst)
-lyst.insert(1)
-    
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(6)
+lyst.insert(7)
+lyst.insert(8)
+lyst.insert(9)
+lyst.insert(10)
+lyst.insert(11)
+lyst.insert(12)
+lyst.insert(113)
+print(lyst)
+lyst.remove_all(6)
+print(len(lyst))
+
 
 
 print(lyst)

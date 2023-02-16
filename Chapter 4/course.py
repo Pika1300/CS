@@ -2,13 +2,17 @@
 
 class Course:
     ''' Course object '''
-    def __init__(self, name):
+    def __init__(self, number,name,credit_hour,grade):
+        self.number=number
+        self.name=name
+        self.credit_hour=credit_hour
+        self.grade=grade
         pass
-
+    isinstance
 
   
     def __eq__(self, other):
-      pass
+        pass  
     def __ne__(self, other):
       pass
     def __lt__(self, other):

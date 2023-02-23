@@ -1,18 +1,23 @@
 from random import randint
 class SList:
     class SListNode:
-        def __init__ (self, value = None):
-            self.value = value
+        def __init__ (self, object = None):
+            print("s-node")
+            self.object = object
+            self.value = object.numberr
             self.next = None
+            print("e-node")
 
     def __init__ (self):
+        print("Lyst")
         self._head = None
         self._tail=None
         self._size = 0
 
     '''Insert a new value in the list. Maintain nondecreasing ordering of elements'''
-    def insert(self, value):
-        n=self.SListNode(value)
+    def insert(self, object):
+        print("s-insert")
+        n=self.SListNode(object)
         #print(n)
         if self._head==None:
             self._head=n
@@ -38,6 +43,7 @@ class SList:
             if next==None:
                 comp.next=n
                 self._head=n
+                
                 return
             head=self._head.value
             while comp!=self._head:
@@ -61,28 +67,34 @@ class SList:
                 else:
                     comp=next
                     next=comp.next
-                
+        print("e-insert")
     '''Search for a value in the list, return it if found, None otherwise'''
     def find(self, value):
+        
         comp=self._tail
         if comp==None:
             return None
         next=comp.next
         while True:
             if comp.value==value:
-                return (comp.value)
+                print("2e-find")
+                return (comp.object)
             elif comp.next==None:
                 break
             else:
                 comp=next
                 next=comp.next
                 
+        print("1e-find")
         return None
 
     '''Remove the first occurance of value.'''
     def remove(self, value):
+        print("s-remove")
+        print(value)
         comp=self._tail
         if comp==None:
+            print("3e-remove")
             return False
         next=comp.next
         found=False
@@ -91,6 +103,7 @@ class SList:
             self._tail=next
             found=True
             self._size-=1
+            print("2e-remove")
             return found
         #iterates
         while next!=None:
@@ -102,10 +115,12 @@ class SList:
             else:
                 comp=next
                 next=comp.next
+        print("1e-remove")
         return found
 
     '''Remove all instances of value'''
     def remove_all(self, value):
+        print("removeall")
         comp=self._tail
         if comp==None:
             return
@@ -141,10 +156,10 @@ class SList:
         l="["
         if n==None:
             return("There is no list.")
-        l=l+str(n.value)+""
+        l=l+str(n)+""
         n=n.next
         while n!=None:
-            l=l+","+str(n.value)
+            l=l+","+str(n)
             n=n.next
         l=l+"]"
         return l
@@ -155,6 +170,7 @@ class SList:
 
     '''Return an iterator for the list'''
     def __iter__(self):
+        print("Iter")
         self.it=self._tail
         return self
 
@@ -163,10 +179,11 @@ class SList:
         if val==None:
             raise StopIteration("List out of Bounds.")
         self.it=val.next
-        return val.value
+        return val.object
     
     '''Return the item at the given index, or throw an exception if invalid index'''
     def __getitem__(self, index):
+        #print("s-Getitem")
         if index>(self._size-1) or self._size==0:
             raise Exception
         else:
@@ -175,22 +192,10 @@ class SList:
             for x in range(index):
                 comp=next
                 next=comp.next
+            #print("e-getitem")
             return comp.value
 
     def __len__(self):
         return self._size
 
     
-lyst=SList()
-
-for x in range(10):
-    val = randint(1,200)
-    #print(val)
-    lyst.insert(val)
-    #print(lyst)
-for z in range(10):
-    val = randint(0,10)
-    #print(val)
-    #lyst.remove_all(val)
-print(lyst)
-print(lyst.__getitem__(0))

@@ -12,9 +12,8 @@ class Stack:
         self.tail.back=self.head
 
     def push(self, item):
+    
         self.siz+=1
-        #print("push")
-        #print(item)
         if self.head.next==self.tail:
             self.topp=self.SListNode(item)
             self.head.next=self.topp
@@ -46,6 +45,10 @@ class Stack:
             
         
     def top(self):
+        #print()
+        #print(self)
+        #print(self.tail.back.value)
+        #print(self.head.value)
         if self.tail.back==self.head:
             raise IndexError("Zero items")
         else:
@@ -70,11 +73,12 @@ class Stack:
         else:
             node=node.next
             while node.next!=None:
-                l+=","+str(node.value)
+                l+=" "+str(node.value)
                 node=node.next
-            
+            l=l.replace("(,","")
+            l=l.replace("),","")
             return(l)
-            
+"""""            
 from random import randint
 s=Stack()
 for x in range(10):
@@ -96,9 +100,4 @@ print(s.pop())
 print(s)
 print(s.pop())
 print(s)
-print(s.pop())
-print(s)
-print(s.pop())
-print(s)
-print(s.pop())
-print(s)
+"""

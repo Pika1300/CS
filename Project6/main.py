@@ -1,6 +1,6 @@
 '''
 Project:
-Author: 
+Author: d
 Course: 
 Date: 
 
@@ -58,13 +58,19 @@ def make_tree():
     :param: None
     :returns: A binary search tree
     '''
-    pass
+    bst=BST()
+    file = open('Project6/around-the-world-in-80-days-3.txt', 'r')
+    
+    for l in file:
+        for x in l:
+            if x==" " or x==" " or x.isalpha()==False:
+                pass
+            else:
+                #print(x)
+                bst.add(Pair(x.lower()))
+    return(bst)
 
 def main():
-    ''' Program kicks off here.
-
-    '''
-    pass
-    
+    make_tree()
 if __name__ == "__main__":
     main()

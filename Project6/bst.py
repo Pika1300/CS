@@ -16,24 +16,38 @@ class BST:
         self.sizz=0
         self.tip=None
         self.heigh=-1
+
     def createTree(self,node):
         self.tip=node
         self.sizz+=1
         self.heigh=0
 
+    def size(self):
+        #print(self.sizz)
+        return(self.sizz) 
+     
+    def is_empty(self):
+        if self.tip==None:
+            return True
+        else:
+            return False
+        
+    def height(self):
+        print(self.heigh)
+        return self.heigh 
+    
 
+    #Adding a node
     def attach_l(self,item,node):
         self.sizz+=1
-        print(item)
+        #print(item)
         node.left=self.Node(item)
 
     def attach_r(self,item,node):
         self.sizz+=1
-        print(item)
+        #print(item)
         node.right=self.Node(item)
-
     def traverse_attach(self,item,node):
-        
         if self.ht>self.heigh:
             self.heigh=self.ht
         self.ht+=1
@@ -49,6 +63,16 @@ class BST:
                 self.attach_r(item,node)
             else:
                 self.traverse_attach(item,node.right)
+    def add(self,item):
+        if self.tip==None:
+            #print(item)
+            self.createTree(self.Node(item))      
+        else:
+            
+            self.ht=0
+            self.traverse_attach(item,self.tip)
+        return(self)
+    #finding a node
     def traverse_find(self,item,node):
         if node==None:
             return None
@@ -58,63 +82,25 @@ class BST:
             return(self.traverse_find(item,node.left))
         elif item>node.value:
             return(self.traverse_find(item,node.right))
-    def traverse(self,node):
-        #print("T"+str(node.value))
-        if node.left!=None:
-            self.traverse(node.left)
-            self.inord.append(node.value)
-        if node.right!=None:
-            if node.left==None:
-                self.inord.append(node.value)
-            self.traverse(node.right)
-        if node.right==None and node.left==None:
-            self.inord.append(node.value)
-            
-    def pretraverse(self,node):
-        #print("T"+str(node.value))
-        self.inord.append(node.value)
-        if node.left!=None:
-            self.pretraverse(node.left)
-        if node.right!=None:
-            self.pretraverse(node.right)
+    def find(self,item):
+        amount=self.traverse_find(item,self.tip)
+        if amount== None:
+            raise ValueError("No Item Found")
+        else:
+            print(amount)
+            return amount        
                    
-        
-    def posttraverse(self,node):
-        #print("T"+str(node.value))
-        if node.left!=None:
-            self.posttraverse(node.left)
-        if node.right!=None:
-            self.posttraverse(node.right)
-        self.inord.append(node.value)
 
-
-    def add(self,item):
-        if self.tip==None:
-            print(item)
-            self.createTree(self.Node(item))      
-        else:
-            
-            self.ht=0
-            self.traverse_attach(item,self.tip)
-        return(self)
-
-    def size(self):
-        print(self.sizz)
-        return(self.sizz) 
-     
-    def is_empty(self):
-        if self.tip==None:
-            return True
-        else:
-            return False
-        
-    def height(self):
-        print(self.heigh)
-        return self.heigh 
-    
+    #Removing
     def find_successor(self,node):
         if node.left==None:
-            self.remove(node)
+            self.remove(node.value)
+            return(node)
+        else:
+            return(self.find_successor(node.left))
+    def find_successor(self,node):
+        if node.left==None:
+            self.remove(node.value)
             return(node)
         else:
             return(self.find_successor(node.left))
@@ -157,36 +143,59 @@ class BST:
             elif item>node.value:
                 self.traverse_remove(item,node.right)
     def remove(self,item):
-        self.sizz-=1
         if self.traverse_find(item,self.tip)!=None:
-            self.traverse_remove(item,self.tip)
-        return(self)
+            if item==self.tip.value:
+                ttip=self.find_successor(self.tip.right)
+                ttip.left=self.tip.left
+                ttip.right=self.tip.right
+                self.tip=ttip
+            else:   
+                self.sizz-=1
+                self.traverse_remove(item,self.tip)
+            return(self)
 
-    def find(self,item):
-        amount=self.traverse_find(item,self.tip)
-        if amount== None:
-            raise ValueError("No Item Found")
-        else:
-            print(amount)
-            return amount
+
             
-
+    def traverse(self,node): 
+        #print("T"+str(node.value))
+        if node.left!=None:
+            self.traverse(node.left)
+            self.inord.append(node.value)
+        if node.right!=None:
+            if node.left==None:
+                self.inord.append(node.value)
+            self.traverse(node.right)
+        if node.right==None and node.left==None:
+            self.inord.append(node.value)
     def inorder(self):
         self.inord=[]
         self.traverse(self.tip)
-        print(self.inord)
-        print(len(self.inord))
+
         return self.inord
+    
+    def pretraverse(self,node):
+        #print("T"+str(node.value))
+        self.inord.append(node.value)
+        if node.left!=None:
+            self.pretraverse(node.left)
+        if node.right!=None:
+            self.pretraverse(node.right)
     def preorder(self):
         self.inord=[]
         self.pretraverse(self.tip)
-        print(self.inord)
-        print(len(self.inord))
+
         return self.inord
+            
+    def posttraverse(self,node):
+        #print("T"+str(node.value))
+        if node.left!=None:
+            self.posttraverse(node.left)
+        if node.right!=None:
+            self.posttraverse(node.right)
+        self.inord.append(node.value)
     def postorder(self):
         self.inord=[]
         self.posttraverse(self.tip)   
-        print(self.inord)
-        print(len(self.inord))
+
         return self.inord 
 

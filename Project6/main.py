@@ -16,7 +16,6 @@ from bst import BST
 
 class Pair:
     ''' Encapsulate letter,count pair as a single entity.
-    
     Realtional methods make this object comparable
     using built-in operators. 
     '''
@@ -59,18 +58,23 @@ def make_tree():
     :returns: A binary search tree
     '''
     bst=BST()
-    file = open('Project6/around-the-world-in-80-days-3.txt', 'r')
-    
+    file = open('CS/Project6/around-the-world-in-80-days-3.txt', 'r')
     for l in file:
         for x in l:
-            if x==" " or x==" " or x.isalpha()==False:
-                pass
-            else:
-                #print(x)
+            if x.isalpha()==True:
                 bst.add(Pair(x.lower()))
+            elif x.isnumeric()==True:
+                bst.add(Pair(x))
+            else:
+                pass
     return(bst)
 
 def main():
-    make_tree()
+    tree=make_tree()
+    print(tree.inorder())
+    print(tree.size())
+    tree.remove(Pair("c"))
+    print(tree.inorder())
+    print(tree.size())
 if __name__ == "__main__":
     main()
